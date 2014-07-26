@@ -9,7 +9,10 @@
 
 	if (isset($_REQUEST["g"])){
 		$g = intval($_GET["g"]);
-		$data = simplexml_load_file('https://api.flickr.com/services/rest/?&method=flickr.photosets.getPhotos&api_key=2fd3128637e223572f1cb7ea3eeb8d87&user_id=49885927@N02&photoset_id='.$g);
+		$data = simplexml_load_file('https://api.flickr.com/services/rest/?&method=flickr.photosets.getPhotos&api_key='.$key.'&user_id='.$id.'&photoset_id='.$g);
+	}
+	else{
+		$album = simplexml_load_file('https://api.flickr.com/services/rest/?method=flickr.photosets.getList&api_key='.$key.'&user_id='.$id);	
 	}
 
 ?>
@@ -41,67 +44,46 @@
 
 <body class="page page-id-670 page-child parent-pageid-240 page-template-default">
 
-<?php if (isset($g)) { ?>
+<?php 
+	//	if g is set we load the pictures, otherwise the album list...
+	if (isset($g)) { 
+		echo "<h1>".$data->photoset['title']."</h1>";
+		echo '<div id="flickrGal0">';
 
-<h1><?php echo $data->photoset['title']; ?></h1>
+		foreach ($data->photoset->photo as $pic):
+		  $id = $pic['id'];
+		  $secret = $pic['secret'];
+		  $server = $pic['server'];
+		  $farm = $pic['farm']; 
+		  $title = $pic['title'];
+		  echo '<a href="https://farm'.$farm.'.staticflickr.com/'.$server.'/'.$id.'_'.$secret.'_b.jpg" onclick="javascript:_gaq.push([\'_trackEvent\',\'outbound-article\',\'http://farm'.$farm.'.staticflickr.com\']);" rel="flickrGal0" title="'.$title.'"><img class="colorbox-670"  alt="'.$title.'" src="https://farm'.$farm.'.staticflickr.com/'.$server.'/'.$id.'_'.$secret.'_n.jpg" data-safe-src="https://farm'.$farm.'.staticflickr.com/'.$server.'/'.$id.'_'.$secret.'_n.jpg" /></a>';
+		endforeach;
 
-<div id="flickrGal0">
-<?php  
+		echo "</div>";
+		?>
+	<script type="text/javascript">
+		jQuery("#flickrGal0").on('jg.rowflush', function() {jQuery(this).find("> a").colorbox({maxWidth : "100%",maxHeight : "100%",current : ""});}).justifiedGallery({'lastRow': 'justify', 'rowHeight':250, 'fixedHeight':false, 'captions':true, 'randomize':false, 'margins':10});
+		(function(){var e=document.createElement("link");var t=document.createElement("link");var n="css/shCore.css?ver=3.0.9";if(e.setAttribute){e.setAttribute("rel","stylesheet");e.setAttribute("type","text/css");e.setAttribute("href",n)}else{e.rel="stylesheet";e.href=n}document.getElementsByTagName("head")[0].insertBefore(e,document.getElementById("syntaxhighlighteranchor"));var r="css/shThemeDefault.css?ver=3.0.9";if(t.setAttribute){t.setAttribute("rel","stylesheet");t.setAttribute("type","text/css");t.setAttribute("href",r)}else{t.rel="stylesheet";t.href=r}document.getElementsByTagName("head")[0].insertBefore(t,document.getElementById("syntaxhighlighteranchor"))})();SyntaxHighlighter.config.strings.expandSource="+ expand source";SyntaxHighlighter.config.strings.help="?";SyntaxHighlighter.config.strings.alert="SyntaxHighlighter\n\n";SyntaxHighlighter.config.strings.noBrush="Can't find brush for: ";SyntaxHighlighter.config.strings.brushNotHtmlScript="Brush wasn't configured for html-script option: ";SyntaxHighlighter.defaults["class-name"]="code";SyntaxHighlighter.defaults["gutter"]=false;SyntaxHighlighter.defaults["pad-line-numbers"]=5;SyntaxHighlighter.defaults["toolbar"]=false;SyntaxHighlighter.all()
+	</script>
+	<?php } else {
+		// Lets list all albums
+		echo '<div id="flickrGal0">';
 
-	foreach ($data->photoset->photo as $pic):
-	  $id = $pic['id'];
-	  $secret = $pic['secret'];
-	  $server = $pic['server'];
-	  $farm = $pic['farm']; 
-	  $title = $pic['title'];
-	  echo '<a href="https://farm'.$farm.'.staticflickr.com/'.$server.'/'.$id.'_'.$secret.'_b.jpg" onclick="javascript:_gaq.push([\'_trackEvent\',\'outbound-article\',\'http://farm'.$farm.'.staticflickr.com\']);" rel="flickrGal0" title="'.$title.'"><img class="colorbox-670"  alt="'.$title.'" src="https://farm'.$farm.'.staticflickr.com/'.$server.'/'.$id.'_'.$secret.'_n.jpg" data-safe-src="https://farm'.$farm.'.staticflickr.com/'.$server.'/'.$id.'_'.$secret.'_n.jpg" /></a>';
-	endforeach;
+		// echo "<pre>";
+		// print_r($album);
+		// echo "</pre>";
+
+		foreach ($album->photosets->photoset as $gallery):
+			echo '<a href="?g='.$gallery->attributes()->id.'"><h2>'.$gallery->title.'</h2></a>';
+		endforeach;
+
+		// echo "</div>";
+
+	}
 ?>
-</div>
-<?php } ?>
 
 
-  <script type="text/javascript">
-	jQuery("#flickrGal0").on('jg.rowflush', function() {jQuery(this).find("> a").colorbox({maxWidth : "100%",maxHeight : "100%",current : ""});}).justifiedGallery({'lastRow': 'justify', 'rowHeight':250, 'fixedHeight':false, 'captions':true, 'randomize':false, 'margins':10});
-  </script>
 
-<script type='text/javascript'>
-  (function(){
-	var corecss = document.createElement('link');
-	var themecss = document.createElement('link');
-	var corecssurl = "css/shCore.css?ver=3.0.9";
-	if ( corecss.setAttribute ) {
-		corecss.setAttribute( "rel", "stylesheet" );
-		corecss.setAttribute( "type", "text/css" );
-		corecss.setAttribute( "href", corecssurl );
-	} else {
-		corecss.rel = "stylesheet";
-		corecss.href = corecssurl;
-	}
-	document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
-	var themecssurl = "css/shThemeDefault.css?ver=3.0.9";
-	if ( themecss.setAttribute ) {
-		themecss.setAttribute( "rel", "stylesheet" );
-		themecss.setAttribute( "type", "text/css" );
-		themecss.setAttribute( "href", themecssurl );
-	} else {
-		themecss.rel = "stylesheet";
-		themecss.href = themecssurl;
-	}
-	//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
-	document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
-  })();
-  SyntaxHighlighter.config.strings.expandSource = '+ expand source';
-  SyntaxHighlighter.config.strings.help = '?';
-  SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
-  SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
-  SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
-  SyntaxHighlighter.defaults['class-name'] = 'code';
-  SyntaxHighlighter.defaults['gutter'] = false;
-  SyntaxHighlighter.defaults['pad-line-numbers'] = 5;
-  SyntaxHighlighter.defaults['toolbar'] = false;
-  SyntaxHighlighter.all();
-</script>
 
 </body>
 </html>
