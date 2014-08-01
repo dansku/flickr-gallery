@@ -3,6 +3,7 @@
 	/* 	
 		Flickr Gallery Script by Daniel Spillere Andrade - www.danielandrade.net
 		based on - http://miromannino.com/projects/justified-gallery/
+		frontpage idea from: paulstamatiou.com/photos/
 	*/
 	
 	// PHP CONFIG FILE
@@ -25,7 +26,7 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>daniel andrade - photos</title>
+	<title><?php echo $Uname;?> - Photos</title>
 
 	<link href="css/lightbox.css" rel="stylesheet" />
 	
@@ -52,7 +53,7 @@
 <body class="page page-id-670 page-child parent-pageid-240 page-template-default" style="background-color: rgb(51, 51, 51);">
 
 <div class="header">
-	<p class="alignleft"><span class="glyphicon glyphicon-user"></span> Daniel Andrade</p>
+	<p class="alignleft"><span class="glyphicon glyphicon-user"></span> <?php echo $Uname;?> </p>
 	<?php if (isset($g)){ echo '<a href="?"><p class="alignright"><span class="glyphicon glyphicon-chevron-left"></span> back to album list</p></a>';} ?>
 	<div style="clear: both;"></div>
 </div>
@@ -87,25 +88,18 @@
 		});
 	</script>
 
-	<?php } else {
-			echo '<br>';
-			echo '<div class="photo_index_wrap clearfix">';
-			echo '<div class="photo_index" style="position: relative; height: 100px;">';
-		// Lets list all albums
-		// echo '<div id="flickrGal0">';
 
+	<?php } else {
+		echo '<br>';
+		echo '<div class="photo_index_wrap clearfix">';
+		echo '<div class="photo_index" style="position: relative; height: 100px;">';
+
+		// Lets list all albums
 		$left = 0;
 		$top = 0;
 		$k = 0;
 		foreach ($album->photosets->photoset as $gallery):
 
-			// echo "<pre>";
-			// print_r($gallery);
-			// echo "</pre>";
-
-			// echo "<h1>".$gallery->title."</h1>";
-			// echo '<img src="https://farm'.$gallery->attributes()->farm.'.staticflickr.com/'.$gallery->attributes()->server.'/'.$gallery->attributes()->primary.'_'.$gallery->attributes()->secret.'_z.jpg">';
-				
 				$img = 'https://farm'.$gallery->attributes()->farm.'.staticflickr.com/'.$gallery->attributes()->server.'/'.$gallery->attributes()->primary.'_'.$gallery->attributes()->secret.'_z.jpg';
 				$name = $gallery->title;
 				$id = $gallery->attributes()->id;
