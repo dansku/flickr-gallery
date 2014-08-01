@@ -2,7 +2,7 @@
 	
 	/* 	
 		Flickr Gallery Script by Daniel Spillere Andrade - www.danielandrade.net
-		based on
+		based on - http://miromannino.com/projects/justified-gallery/
 	*/
 	
 	// PHP CONFIG FILE
@@ -30,15 +30,12 @@
 	<link href="css/lightbox.css" rel="stylesheet" />
 	
 	<link rel='stylesheet' href='css/justifiedGallery.min.css?ver=3.9.1' type='text/css' media='all' />
-	<link rel='stylesheet' href='css/swipebox.min.css?ver=3.9.1' type='text/css' media='all' />
 	<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css' type='text/css' media='all' />
 	<link rel='stylesheet' href='css/style.css' type='text/css' />
 	<link rel='stylesheet' href='css/lightbox.css' type='text/css' media='all' />
 
 	<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
-	<script type='text/javascript' src='js/query-migrate.min.js?ver=1.2.1'></script>
 	<script type='text/javascript' src='js/jquery.justifiedGallery.min.js?ver=3.9.1'></script>
-	<script type='text/javascript' src='js/jquery.swipebox.min.js?ver=3.9.1'></script>
 	<script type='text/javascript' src='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'></script>
 	<script type='text/javascript' src='js/lightbox.min.js'></script>
 
@@ -79,8 +76,15 @@
 		?>
 
 	<script type="text/javascript">
-		jQuery("#flickrGal0").on('jg.rowflush', function() {jQuery(this).find("> a").colorbox({maxWidth : "100%",maxHeight : "100%",current : ""});}).justifiedGallery({'lastRow': 'justify', 'rowHeight':250, 'fixedHeight':false, 'captions':true, 'randomize':false, 'margins':10});
-		(function(){var e=document.createElement("link");var t=document.createElement("link");var n="css/shCore.css?ver=3.0.9";if(e.setAttribute){e.setAttribute("rel","stylesheet");e.setAttribute("type","text/css");e.setAttribute("href",n)}else{e.rel="stylesheet";e.href=n}document.getElementsByTagName("head")[0].insertBefore(e,document.getElementById("syntaxhighlighteranchor"));var r="css/shThemeDefault.css?ver=3.0.9";if(t.setAttribute){t.setAttribute("rel","stylesheet");t.setAttribute("type","text/css");t.setAttribute("href",r)}else{t.rel="stylesheet";t.href=r}document.getElementsByTagName("head")[0].insertBefore(t,document.getElementById("syntaxhighlighteranchor"))})();SyntaxHighlighter.config.strings.expandSource="+ expand source";SyntaxHighlighter.config.strings.help="?";SyntaxHighlighter.config.strings.alert="SyntaxHighlighter\n\n";SyntaxHighlighter.config.strings.noBrush="Can't find brush for: ";SyntaxHighlighter.config.strings.brushNotHtmlScript="Brush wasn't configured for html-script option: ";SyntaxHighlighter.defaults["class-name"]="code";SyntaxHighlighter.defaults["gutter"]=false;SyntaxHighlighter.defaults["pad-line-numbers"]=5;SyntaxHighlighter.defaults["toolbar"]=false;SyntaxHighlighter.all()
+
+		$("#flickrGal0").justifiedGallery({
+			lastRow: "justify",
+			rowHeight: 250,
+			fixedHeight: false,
+			captions: true,
+			randomize: false,
+			margins: 10
+		});
 	</script>
 
 	<?php } else {
