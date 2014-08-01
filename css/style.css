@@ -1,0 +1,70 @@
+.photo_index_wrap {
+	padding: 0;
+	width: 1000px;
+	margin: 0em auto 4em;
+}
+
+.photo_index article .picz {
+	display:block;
+	width:500px;
+	height: 334px;
+	height:auto!important;
+	opacity:1;
+
+}
+
+.gallery_name {
+	color: #fff;
+	font-size: 1.5rem;
+	line-height: 1;
+	padding: 0.5em 0.7em;
+	position: absolute;
+	top: 1em;
+	left: 1em;
+	opacity: .6;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background:rgba(0,0,0,0.5);
+}
+
+
+article:hover .gallery_name {
+opacity:1;
+background:rgba(0,0,0,0.7);
+-webkit-transition:all .15s ease-in;
+transition:all .15s ease-in;
+-webkit-transition-delay:.15s;
+transition-delay:.15s;
+}
+
+h1 {
+	color: #rgb(51, 51, 51);
+	font-family: Monaco, Consolas, "Lucida Console", monospace;
+	font-size: 50px;
+	text-align:center;
+	color: #fff;
+}
+
+.header {
+	background-color: #535353;
+	height: 30px;
+	padding:5px;
+	color: #fff;
+}
+
+.alignleft {
+	float: left;
+	padding-left: 20px;
+}
+.alignright {
+	padding-right: 20px;
+	float: right;
+}
+
+a:link, a:visited {
+	color: #fff;
+}
+
+ a:hover {
+ 	color: #ccc;
+ }
