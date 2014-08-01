@@ -7,3 +7,7 @@ Photo gallery using flickr pictures and API
 
 **Usage:**
 Upload everything to your server, change the *config.php* with your Api key and User ID.
+
+**Example**
+![](http://cl.ly/image/2E442H0t2K47/gallery02.png)
+![](http://cl.ly/image/1d3d3C2m3g3k/gallery01.png)
